@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api/v1/usuarios") // Prefixo REST padrão
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -22,45 +22,42 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping
     public ResponseEntity<Void> createUsuario(@RequestBody CreateUsuarioDto createUsuarioDto) {
         Integer usuarioId = usuarioService.createUsuario(createUsuarioDto);
-        return ResponseEntity.created(URI.create("/v1/usuarios/" + usuarioId)).build();
+        return ResponseEntity.created(URI.create("/api/v1/usuarios/" + usuarioId)).build();
     }
 
-    @GetMapping("/usuarios/{cpf}")
+    @GetMapping("/{cpf}")
     public ResponseEntity<Usuario> getUsuarioByCpf(@PathVariable("cpf") String cpf) {
         Usuario usuario = usuarioService.getUsuarioByCpf(cpf);
         return ResponseEntity.ok(usuario);
     }
 
-    @GetMapping("/usuarios")
+    @GetMapping
     public ResponseEntity<List<Usuario>> listUsuarios() {
         var usuarios = usuarioService.listUsuarios();
         return ResponseEntity.ok(usuarios);
     }
 
-    @PutMapping("/usuarios/{cpf}")
+    @PutMapping("/{cpf}")
     public ResponseEntity<Map<String, String>> updateUsuarioByCpf(@PathVariable("cpf") String cpf,
                                                                   @RequestBody UpdateUsuarioDto updateUsuarioDto) {
         usuarioService.updateUsuarioByCpf(cpf, updateUsuarioDto);
 
-        // Criando um corpo de resposta com mensagem
         Map<String, String> resposta = new HashMap<>();
         resposta.put("mensagem", "Usuário com CPF " + cpf + " atualizado com sucesso.");
 
-        return ResponseEntity.ok(resposta); // Retorna HTTP 200 com JSON na resposta
+        return ResponseEntity.ok(resposta);
     }
 
-
-    @DeleteMapping("/usuarios/{cpf}")
+    @DeleteMapping("/{cpf}")
     public ResponseEntity<Map<String, String>> deleteByCpf(@PathVariable("cpf") String cpf) {
         usuarioService.deleteByCpf(cpf);
 
         Map<String, String> respostaDelete = new HashMap<>();
         respostaDelete.put("mensagem", "Usuário com CPF " + cpf + " deletado com sucesso.");
 
-        return ResponseEntity.ok(respostaDelete); // Retorna JSON com código 200 e mensagem
+        return ResponseEntity.ok(respostaDelete);
     }
-
 }
