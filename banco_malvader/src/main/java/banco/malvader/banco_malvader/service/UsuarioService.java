@@ -7,6 +7,10 @@ import banco.malvader.banco_malvader.repository.UsuarioRepository;
 
 import org.springframework.stereotype.Service;
 
+// Importando classes do Spring Security
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -14,12 +18,15 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = new BCryptPasswordEncoder(); // Instancia usada para codificar/verificar senhas
     }
 
+    // Criação de usuário com senha criptografada
     public Integer createUsuario(CreateUsuarioDto createUsuarioDto) {
         var entity = new Usuario();
         entity.setNome(createUsuarioDto.nome());
@@ -27,7 +34,10 @@ public class UsuarioService {
         entity.setDataNascimento(LocalDate.parse(createUsuarioDto.dataNascimento()));
         entity.setTelefone(createUsuarioDto.telefone());
         entity.setTipoUsuario(TipoUsuario.valueOf(createUsuarioDto.tipoUsuario()));
-        entity.setSenhaHash(createUsuarioDto.senhaHash());
+
+        // Criptografando a senha recebida
+        String senhaCriptografada = passwordEncoder.encode(createUsuarioDto.senha());
+        entity.setSenhaHash(senhaCriptografada);
 
         var usuarioSaved = usuarioRepository.save(entity);
         return usuarioSaved.getIdUsuario();
@@ -55,7 +65,9 @@ public class UsuarioService {
         }
 
         if (updateUsuarioDto.senhaHash() != null) {
-            usuario.setSenhaHash(updateUsuarioDto.senhaHash());
+            // Criptografa nova senha antes de salvar
+            String novaSenhaHash = passwordEncoder.encode(updateUsuarioDto.senhaHash());
+            usuario.setSenhaHash(novaSenhaHash);
         }
 
         usuarioRepository.save(usuario);
@@ -68,11 +80,12 @@ public class UsuarioService {
         usuarioRepository.delete(usuario);
     }
 
+    // Verificação de login usando o método matches
     public boolean verificarLogin(String cpf, String senha) {
-
         Optional<Usuario> user = usuarioRepository.findByCpf(cpf);
 
-        return user.isPresent() && user.get().getSenhaHash().equals(senha);
+        // Retorna true se o usuário existir e a senha informada bater com o hash
+        return user.isPresent() && passwordEncoder.matches(senha, user.get().getSenhaHash());
     }
 
 }

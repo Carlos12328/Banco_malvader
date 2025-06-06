@@ -30,7 +30,7 @@ public class LoginController {
         boolean loginValido = usuarioService.verificarLogin(cpf, senha);
 
         if (loginValido) {
-            return "redirect:/home"; // redireciona para a próxima tela
+            return "redirect:/validar_otp"; // redireciona para a próxima tela
         } else {
             model.addAttribute("erro", "Usuário ou senha inválidos");
             return "login"; // recarrega a página com mensagem de erro
