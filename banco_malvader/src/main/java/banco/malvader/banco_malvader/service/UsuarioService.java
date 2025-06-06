@@ -1,20 +1,20 @@
 package banco.malvader.banco_malvader.service;
 
-import banco.malvader.banco_malvader.dto.CreateUsuarioDto;
-import banco.malvader.banco_malvader.dto.UpdateUsuarioDto;
+import banco.malvader.banco_malvader.dto.*;
 import banco.malvader.banco_malvader.exception.UsuarioNotFoundException;
-import banco.malvader.banco_malvader.model.TipoUsuario;
-import banco.malvader.banco_malvader.model.Usuario;
+import banco.malvader.banco_malvader.model.*;
 import banco.malvader.banco_malvader.repository.UsuarioRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
 
-    private final UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
@@ -67,4 +67,12 @@ public class UsuarioService {
 
         usuarioRepository.delete(usuario);
     }
+
+    public boolean verificarLogin(String cpf, String senha) {
+
+        Optional<Usuario> user = usuarioRepository.findByCpf(cpf);
+
+        return user.isPresent() && user.get().getSenhaHash().equals(senha);
+    }
+
 }
