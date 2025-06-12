@@ -24,7 +24,7 @@ public class LoginController {
     }
 
     @PostMapping
-public String autenticar(@RequestParam String cpf,
+    public String autenticar(@RequestParam String cpf,
                          @RequestParam String senha,
                          Model model,
                          HttpSession session) {
