@@ -1,9 +1,10 @@
 package banco.malvader.banco_malvader.controller.api;
 
-import banco.malvader.banco_malvader.dto.CreateUsuarioDto;
-import banco.malvader.banco_malvader.dto.UpdateUsuarioDto;
+import banco.malvader.banco_malvader.dto.*;
 import banco.malvader.banco_malvader.model.Usuario;
 import banco.malvader.banco_malvader.service.UsuarioService;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,4 +61,16 @@ public class UsuarioController {
 
         return ResponseEntity.ok(respostaDelete);
     }
+
+    @PostMapping("/validar_otp")
+    public ResponseEntity<String> validarOtp(@RequestBody ValidarOtpDto dto) {
+    boolean valido = usuarioService.validarOtp(dto.cpf(), dto.otp());
+
+    if (valido) {
+        return ResponseEntity.ok("OTP válido. Acesso liberado.");
+    } else {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("OTP inválido ou expirado.");
+    }
+}
+
 }

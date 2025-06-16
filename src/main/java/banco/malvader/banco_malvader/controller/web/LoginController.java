@@ -1,6 +1,8 @@
 package banco.malvader.banco_malvader.controller.web;
 
 import banco.malvader.banco_malvader.service.UsuarioService;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,23 +19,25 @@ public class LoginController {
 
     // Mostra a tela de login (GET /login)
     @GetMapping
-    public String showLoginPage() {
+    public String telaLogin() {
         return "login";
     }
 
-    // Processa o formulário de login (POST /login)
     @PostMapping
     public String autenticar(@RequestParam String cpf,
-                             @RequestParam String senha,
-                             Model model) {
+                         @RequestParam String senha,
+                         Model model,
+                         HttpSession session) {
 
-        boolean loginValido = usuarioService.verificarLogin(cpf, senha);
+    boolean loginValido = usuarioService.verificarLogin(cpf, senha);
 
-        if (loginValido) {
-            return "redirect:/home"; // redireciona para a próxima tela
-        } else {
-            model.addAttribute("erro", "Usuário ou senha inválidos");
-            return "login"; // recarrega a página com mensagem de erro
-        }
+    if (loginValido) {
+        session.setAttribute("cpfAutenticado", cpf); // Armazena CPF na sessão
+        return "redirect:/otp"; // Não precisa mais mandar por URL
+    } else {
+        model.addAttribute("erro", "Usuário ou senha inválidos");
+        return "login";
     }
+}
+
 }

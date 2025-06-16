@@ -42,9 +42,9 @@ public class Usuario {
     private TipoUsuario tipoUsuario;
 
     @NotBlank(message = "A senha é obrigatória")
-    @Size(min = 6, max = 32, message = "A senha deve ter entre 6 e 32 caracteres")
-    @Column(name = "senha_hash", nullable = false, length = 32)
+    @Column(name = "senha_hash", nullable = false, length = 100)
     private String senhaHash;
+
 
     @Size(max = 6, message = "O OTP deve ter no máximo 6 dígitos")
     @Column(name = "otp_ativo", length = 6)
