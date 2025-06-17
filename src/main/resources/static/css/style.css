@@ -1,3 +1,120 @@
-body{
-    padding: 20px
+/* Estilo geral para o body */
+body {
+    background-color: #f8f9fa; /* Cor de fundo suave para toda a página */
+    padding: 0;
+    margin: 0;
+    font-family: 'Arial', sans-serif; /* Fonte legível */
+}
+
+/* Card (formulário) */
+.card {
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil ao redor do card */
+    background-color: #fff;
+    padding: 30px;
+}
+
+/* Títulos */
+h3 {
+    color: #007bff; /* Cor azul para os títulos */
+    font-weight: bold;
+}
+
+/* Corpo do texto */
+p {
+    font-size: 14px;
+    color: #555; /* Cor de texto mais suave */
+}
+
+/* Centralização de textos no card */
+.text-center {
+    text-align: center;
+}
+
+/* Alertas de erro */
+.alert {
+    border-radius: 5px; /* Bordas arredondadas no alerta */
+    padding: 15px;
+}
+
+/* Formulários e inputs */
+.form-label {
+    font-weight: bold; /* Rótulos em negrito */
+    color: #333; /* Cor escura para rótulos */
+}
+
+.form-control {
+    border-radius: 8px; /* Bordas arredondadas nos inputs */
+    box-shadow: none; /* Remove sombra do input */
+    border: 1px solid #ddd; /* Borda fina */
+    padding: 12px 15px; /* Espaçamento interno */
+}
+
+/* Input de texto (OTP) */
+#otp {
+    font-size: 18px; /* Aumentar o tamanho da fonte do código OTP */
+}
+
+/* Botões */
+.btn {
+    border-radius: 25px; /* Botões arredondados */
+    font-weight: bold; /* Texto em negrito */
+    padding: 12px; /* Tamanho do botão */
+}
+
+/* Botão de envio */
+.btn-primary {
+    background-color: #007bff; /* Azul */
+    border-color: #007bff; /* Azul */
+}
+
+/* Mudança de cor do botão ao passar o mouse */
+.btn-primary:hover {
+    background-color: #0056b3; /* Azul mais escuro */
+    border-color: #0056b3; /* Azul mais escuro */
+}
+
+/* Container de conteúdo */
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 576px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .card {
+        padding: 20px; /* Menos padding em telas menores */
+    }
+
+    h3 {
+        font-size: 1.5rem; /* Tamanho menor do título */
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .sidebar {
+        height: 100vh;
+        background-color: #343a40;
+        padding-top: 20px;
+    }
+
+    .sidebar .btn {
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: left;
+        color: white;
+    }
+
+    .sidebar .btn:hover {
+        background-color: #495057;
+    }
+
+
 }

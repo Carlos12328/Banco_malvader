@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Área do Cliente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <nav class="sidebar bg-dark text-white p-3" style="min-height: 100vh;">
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link text-white" href="#">🏠 Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">💰 Saldo</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">⬆️ Depósito</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">⬇️ Saque</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">↔️ Transferência</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">📋 Extrato</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">📊 Limites</a></li>
+        </ul>
+
+        <div class="mt-auto pt-4 border-top text-center">
+            <div class="mb-2">👤 <strong>João Silva</strong></div>
+            <div><small>Conta: 12345-6</small></div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="content p-4 w-100">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Bem-vindo, João!</h2>
+                <a href="/login" class="btn btn-outline-danger">Sair →</a>
+            </div>
+
+            <div class="row g-4">
+                <!-- Card Saldo -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title">Saldo Disponível</h5>
+                                <button class="btn btn-sm btn-outline-secondary" id="toggleSaldoBtn">👁️</button>
+                            </div>
+                            <h3 id="saldoValor" class="fw-bold">R$ 5.247,90</h3>
+                            <div class="text-muted">Limite: R$ 2.000,00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Ações Rápidas -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Ações Rápidas</h5>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-success flex-fill">⬆️ Depósito</button>
+                                <button class="btn btn-warning flex-fill">⬇️ Saque</button>
+                                <button class="btn btn-primary flex-fill">↔️ Transferir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Transações -->
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title">Últimas Transações</h5>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Ver tudo</a>
+                            </div>
+
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <div>
+                                        <strong>🏪 Supermercado</strong><br>
+                                        <small>Ontem, 15:30</small>
+                                    </div>
+                                    <span class="text-danger fw-bold">-R$ 148,90</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <div>
+                                        <strong>💼 Depósito Salário</strong><br>
+                                        <small>05/06, 08:00</small>
+                                    </div>
+                                    <span class="text-success fw-bold">+R$ 3.500,00</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <div>
+                                        <strong>🍽️ Restaurante</strong><br>
+                                        <small>03/06, 20:15</small>
+                                    </div>
+                                    <span class="text-danger fw-bold">-R$ 87,50</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Exemplo simples de esconder/mostrar o saldo
+    const saldoValor = document.getElementById('saldoValor');
+    const toggleBtn = document.getElementById('toggleSaldoBtn');
+    let saldoVisivel = true;
+
+    toggleBtn.addEventListener('click', () => {
+        saldoVisivel = !saldoVisivel;
+        saldoValor.textContent = saldoVisivel ? 'R$ 5.247,90' : '•••••••';
+    });
+</script>
+
+</body>
+</html>

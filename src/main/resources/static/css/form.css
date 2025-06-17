@@ -1,0 +1,29 @@
+body {
+    background-color: #f8f9fa;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    position: fixed;
+}
+
+.content {
+    margin-left: 250px;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.card input,
+.card select {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.alert {
+    margin-bottom: 1rem;
+}

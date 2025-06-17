@@ -1,47 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"> <!-- Declaração do HTML e namespace do Thymeleaf -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"> <!-- Define o conjunto de caracteres para UTF-8 -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Compatibilidade com navegadores antigos (IE) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsividade para dispositivos móveis -->
-
-    <!-- Importação do CSS do Bootstrap (CDN) -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Link para seu próprio arquivo de estilo (opcional) -->
     <link rel="stylesheet" href="css/style.css">
-
-    <title>Login</title> <!-- Título da aba do navegador -->
+    <title>Login</title>
 </head>
-<body>
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
 
-<!-- Bloco que exibe uma mensagem de erro, se existir -->
-<!-- th:if verifica se existe uma variável chamada 'erro' vinda do backend -->
-<div th:if="${erro}" class="alert alert-danger" role="alert">
-    <!-- th:text exibe o conteúdo da variável 'erro' dentro da tag <p> -->
-    <p th:text="${erro}"></p>
+<div class="container col-12 col-md-6 col-lg-4">
+    <!-- Bloco de erro -->
+    <div th:if="${erro}" class="alert alert-danger text-center" role="alert">
+        <p th:text="${erro}"></p>
+    </div>
+
+    <!-- Formulário de login -->
+    <div class="card shadow-sm p-4">
+        <h3 class="text-center mb-4">Banco Malvader</h3>
+
+        <form th:action="@{/login}" method="post">
+
+            <!-- Campo de entrada para o CPF -->
+            <div class="mb-3">
+                <label for="usuario" class="form-label">Usuário</label>
+                <input type="text" class="form-control" id="usuario" name="cpf" required placeholder="Digite seu CPF">
+            </div>
+
+            <!-- Campo de entrada para a senha -->
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" required placeholder="Digite sua senha">
+            </div>
+
+            <!-- Botão de enviar -->
+            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+        </form>
+    </div>
 </div>
-
-<!-- Formulário de login -->
-<!-- th:action define que o formulário será enviado para a rota '/login' -->
-<!-- method="post" indica que os dados serão enviados por POST -->
-<form th:action="@{/login}" method="post">
-
-    <!-- Campo de entrada para o CPF do usuário -->
-    <div class="mb-3"> <!-- Classe Bootstrap para espaçamento inferior -->
-        <label for="usuario" class="form-label">Usuário</label> <!-- Rótulo do campo -->
-        <input type="text" class="form-control" id="usuario" name="cpf"> <!-- Campo de texto com nome "cpf" -->
-    </div>
-
-    <!-- Campo de entrada para a senha -->
-    <div class="mb-3">
-        <label for="senha" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="senha" name="senha"> <!-- Campo de senha com nome "senha" -->
-    </div>
-
-    <!-- Botão para enviar o formulário -->
-    <button type="submit" class="btn btn-primary">Entrar</button>
-</form>
 
 </body>
 </html>
