@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
 @Controller
 @RequestMapping("/otp")
 public class OtpController {
@@ -20,20 +19,19 @@ public class OtpController {
     }
 
     @GetMapping
-        public String exibirFormularioOtp(HttpSession session, Model model) {
+    public String exibirFormularioOtp(HttpSession session, Model model) {
         String cpf = (String) session.getAttribute("cpfAutenticado");
 
         if (cpf == null) {
-            return "redirect:/login"; // Se o usuário não passou pelo login
+            return "redirect:/login"; // Se não fez login
         }
 
         model.addAttribute("cpf", cpf);
         return "otp";
-}
-
+    }
 
     @PostMapping
-    public String VerificarOtp(HttpSession session, @RequestParam("otp") String otp, Model model) {
+    public String verificarOtp(HttpSession session, @RequestParam("otp") String otp, Model model) {
 
         String cpf = (String) session.getAttribute("cpfAutenticado");
 
@@ -45,11 +43,10 @@ public class OtpController {
 
         if (!valido) {
             model.addAttribute("erro", "OTP inválido ou expirado.");
-            model.addAttribute("cpf", cpf); // para manter o campo oculto no formulário
-            return "otp"; // volta pra tela de OTP e não login!
+            model.addAttribute("cpf", cpf);
+            return "otp";
         }
 
-        // Busca o usuário e redireciona conforme o tipo
         Usuario usuario = usuarioService.getUsuarioByCpf(cpf);
 
         if (usuario == null) {
@@ -57,22 +54,19 @@ public class OtpController {
             return "login";
         }
 
-        // Limpa o atributo da sessão após sucesso
+        // Limpa sessão após validação
         session.removeAttribute("cpfAutenticado");
 
         String tipo = usuario.getTipoUsuario().name();
 
-        if ("CLIENTE".equalsIgnoreCase(tipo)) {
-            return "redirect:/cliente";
-        } else if ("FUNCIONARIO".equalsIgnoreCase(tipo)) {
-            return "redirect:/funcionario";
+        // Redirecionamento conforme tipo
+        if ("FUNCIONARIO".equalsIgnoreCase(tipo)) {
+            return "redirect:/usuarios/adicionar"; // Vai para o formulário
+        } else if ("CLIENTE".equalsIgnoreCase(tipo)) {
+            return "redirect:/usuarios/clientes"; // Altere se tiver página de cliente
         } else {
-            model.addAttribute("erro", "Tipo de usuário desconhecido.");
+            model.addAttribute("erro", "Tipo de usuário não autorizado.");
             return "login";
         }
     }
-
-
 }
-    
-

@@ -24,10 +24,10 @@ public class LoginController {
     }
 
     @PostMapping
-    public String autenticar(@RequestParam String cpf,
-                         @RequestParam String senha,
-                         Model model,
-                         HttpSession session) {
+    public String autenticar(@RequestParam String cpf, @RequestParam String senha, Model model, HttpSession session) {
+
+    System.out.println("CPF recebido: " + cpf);
+    System.out.println("Senha recebida: " + senha);
 
     boolean loginValido = usuarioService.verificarLogin(cpf, senha);
 

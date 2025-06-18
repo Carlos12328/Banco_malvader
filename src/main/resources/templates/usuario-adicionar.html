@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Funcionário</title>
+    <link rel="stylesheet" href="/css/form.css">
+    <script defer src="/js/form.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <nav class="sidebar bg-dark text-white p-3">
+        <h4 class="text-center mb-4">Painel do Funcionário</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#" id="inicioLink">🏠 Início</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#" id="adicionarUsuarioLink">➕ Adicionar Usuário</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">💼 Abertura de Conta</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">❌ Encerramento de Conta</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">🔍 Consulta de Dados</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">✏️ Alteração de Dados</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/login">🚪 Sair</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo principal -->
+    <main class="content p-4 w-100">
+        <div class="container">
+            <div id="bemVindoMessage" class="text-center mb-4">
+                <h2>Bem-vindo, Funcionário!</h2>
+                <p class="text-muted">Selecione uma opção no menu à esquerda.</p>
+            </div>
+
+            <!-- Formulário de Adicionar Usuário -->
+            <div id="formularioUsuario" class="card shadow p-4 mx-auto" style="max-width: 600px; display: none;">
+                <h4 class="text-center mb-4">Adicionar Novo Usuário</h4>
+
+
+                <form th:action="@{/usuarios/adicionar}" method="post" th:object="${usuario}">
+                    <div class="mb-3">
+                        <label class="form-label">Nome</label>
+                        <input type="text" class="form-control shadow-sm" th:field="*{nome}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">CPF</label>
+                        <input type="text" class="form-control shadow-sm" th:field="*{cpf}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Data de Nascimento</label>
+                        <input type="date" class="form-control shadow-sm" th:field="*{dataNascimento}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Telefone</label>
+                        <input type="text" class="form-control shadow-sm" th:field="*{telefone}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Tipo de Usuário</label>
+                        <select class="form-select shadow-sm" th:field="*{tipoUsuario}" required>
+                            <option value="">Selecione</option>
+                            <option value="CLIENTE">Cliente</option>
+                            <option value="FUNCIONARIO">Funcionário</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Senha</label>
+                        <input type="password" class="form-control shadow-sm" th:field="*{senha}" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>
