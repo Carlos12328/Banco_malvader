@@ -1,26 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Seletores dos elementos
     const adicionarUsuarioLink = document.getElementById("adicionarUsuarioLink");
+    const encerramentoContaLink = document.querySelectorAll(".nav-link")[3]; // Posição 3 = 4º botão da sidebar
     const inicioLink = document.getElementById("inicioLink");
+
     const bemVindoMessage = document.getElementById("bemVindoMessage");
     const formularioUsuario = document.getElementById("formularioUsuario");
+    const formularioEncerramento = document.getElementById("formularioEncerramento");
 
-    // Exibir formulário de adicionar usuário
+    // Função para esconder todos os formulários
+    function esconderTodosOsFormularios() {
+        formularioUsuario.style.display = "none";
+        formularioEncerramento.style.display = "none";
+    }
+
+    // Botão "Adicionar Usuário"
     adicionarUsuarioLink.addEventListener("click", (e) => {
         e.preventDefault();
-        bemVindoMessage.style.display = "none"; // Esconde a mensagem de boas-vindas
-        formularioUsuario.style.display = "block"; // Exibe o formulário
+        bemVindoMessage.style.display = "none";
+        esconderTodosOsFormularios();
+        formularioUsuario.style.display = "block";
     });
 
-    // Fechar o formulário e exibir a mensagem de boas-vindas
+    // Botão "Encerramento de Conta"
+    encerramentoContaLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        bemVindoMessage.style.display = "none";
+        esconderTodosOsFormularios();
+        formularioEncerramento.style.display = "block";
+    });
+
+    // Botão "Início"
     inicioLink.addEventListener("click", (e) => {
         e.preventDefault();
-        formularioUsuario.style.display = "none"; // Esconde o formulário
-        bemVindoMessage.style.display = "block"; // Exibe a mensagem de boas-vindas
+        esconderTodosOsFormularios();
+        bemVindoMessage.style.display = "block";
     });
 
-    // Ações do botão "Sair"
+    // Botão "Sair"
     const sairLink = document.querySelector(".nav-link[href='/logout']");
     sairLink.addEventListener("click", (e) => {
-        window.location.href = "/login"; // Redireciona para a página de login
+        window.location.href = "/login";
     });
 });

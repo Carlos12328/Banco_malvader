@@ -42,4 +42,20 @@ public class FuncionarioController {
 
         return "usuario-adicionar"; // Retorna para a mesma página (não redireciona)
     }
+
+    @PostMapping("/deletar")
+    public String encerrarConta(@RequestParam String cpf, Model model) {
+
+    model.addAttribute("usuario", new CreateUsuarioDto(null, null, null, null, null, null));
+
+    try {
+        usuarioService.deleteByCpf(cpf);
+        model.addAttribute("mensagemSucesso", "Conta com CPF " + cpf + " encerrada com sucesso.");
+    } catch (Exception e) {
+        model.addAttribute("erro", "Erro ao encerrar conta: " + e.getMessage());
+    }
+
+    // Retorna para a tela principal ou recarrega o painel
+    return "usuario-adicionar"; // ou o template principal do painel, se quiser
+    }
 }
